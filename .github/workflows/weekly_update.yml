@@ -51,22 +51,13 @@ jobs:
           git push origin action/collection_ids
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Create pull request
-      #   uses: peter-evans/create-pull-request@v3
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     title: "chore(assets)[github-actions] : Update collection_ids.json"
-      #     body: "Automatically updating collection_ids.json file for latest TMDB collections"
-      #     labels: "📦 dependencies"
-      #     base: dev
-      #     branch: action/collection_ids
       - name: Create pull request
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: action/collection_ids
           target_branch: dev
-          title: ${{ github.event.commits[0].message }}
+          title: "chore(assets)[github-actions] : Update collection_ids.json for $(date -d 'yesterday' +\%m_%d_%Y)"
           body: "Automatically updating collection_ids.json file for latest TMDB collections"
           assignee: ${{ github.actor }}
           reviewer: leoodz
